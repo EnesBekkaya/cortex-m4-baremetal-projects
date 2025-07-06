@@ -1,0 +1,22 @@
+{
+    "configurations": [
+      {
+        "name": "STM32F4",
+        "includePath": [
+          "${workspaceFolder}/**",
+          "C:/Users/enes_/libopencm3/include",
+          "C:/Users/enes_/libopencm3/lib/stm32/f4"
+        ],
+        "defines": [
+          "STM32F4",
+          "STM32F429_439xx"
+        ],
+        "compilerPath": "C:/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "intelliSenseMode": "gcc-arm"
+      }
+    ],
+    "version": 4
+  }
+  
