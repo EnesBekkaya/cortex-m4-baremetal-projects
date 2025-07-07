@@ -19,6 +19,13 @@
         "common.h": "c",
         "gpio_common_f24.h": "c",
         "pwr.h": "c",
-        "rcc.h": "c"
+        "rcc.h": "c",
+        "systick.h": "c",
+        "vector.h": "c",
+        "nvic.h": "c",
+        "timer.h": "c",
+        "timer_common_f24.h": "c",
+        "system.h": "c",
+        "common-defines.h": "c"
     }
 }
