@@ -34,7 +34,7 @@ INCLUDE cortex-m-generic.ld
 */
 MEMORY
 {
-	rom (rx) : ORIGIN = 0x08000000, LENGTH = 256K
+	rom (rx) : ORIGIN = 0x08000000, LENGTH = 32K
 	ram (rwx) : ORIGIN = 0x20000000, LENGTH = 16K
 }
 /* Enforce emmition of the vector table. */
@@ -47,7 +47,6 @@ ENTRY(reset_handler)
 SECTIONS
 {
 	.text : {
-		KEEP(*(.bootloader_section))
 		*(.vectors)	/* Vector table */
 		*(.text*)	/* Program code */
 		. = ALIGN(4);

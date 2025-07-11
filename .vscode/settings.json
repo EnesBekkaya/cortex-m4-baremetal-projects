@@ -26,6 +26,8 @@
         "timer.h": "c",
         "timer_common_f24.h": "c",
         "system.h": "c",
-        "common-defines.h": "c"
+        "common-defines.h": "c",
+        "memorymap.h": "c",
+        "scb.h": "c"
     }
 }
