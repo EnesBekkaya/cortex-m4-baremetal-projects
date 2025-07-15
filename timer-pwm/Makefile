@@ -61,6 +61,7 @@ OBJS		+= $(SRC_DIR)/$(BINARY).o
 OBJS		+= $(SHARED_SRC_DIR)/core/system.o
 OBJS		+= $(SRC_DIR)/timer.o
 OBJS		+= $(SHARED_SRC_DIR)/core/uart.o
+OBJS		+= $(SHARED_SRC_DIR)/core/ring-buffer.o
 
 ###############################################################################
 # C flags

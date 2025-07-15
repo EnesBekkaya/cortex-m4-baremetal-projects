@@ -23,3 +23,12 @@ void system_setup(void){
 rcc_setup();
 systick_setup();
 }
+void system_delay(uint64_t miliseconds){
+
+	uint64_t end_time = system_get_ticks() + miliseconds;
+	while (system_get_ticks() < end_time)
+	{
+		
+	}
+	
+}
