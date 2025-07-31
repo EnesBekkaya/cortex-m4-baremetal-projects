@@ -1,0 +1,63 @@
+#include "comms.h"
+#include "uart.h"
+#include "crc.h"
+
+typedef enum comms_state_t{
+    CommsState_Length,
+    CommsState_Data,
+    CommsState_CRC,
+}comms_state_t;
+
+static comms_state_t state = CommsState_Length;
+static uint8_t data_byte_count = 0;
+
+static comms_packet_t temporary_packet = {.length = 0, .data = {0}, .crc = 0};
+void comms_setup(void){
+
+
+}
+
+void comms_update(void){
+    switch (state)
+    {
+    case CommsState_Length:
+        temporary_packet.length = uart_read_byte();
+        state = CommsState_Data;
+        break;
+    
+    case CommsState_Data:
+        temporary_packet.data[data_byte_count++] = uart_read_byte();
+        if(data_byte_count >= PACKET_DATA_LENGTH){
+            data_byte_count = 0;
+            state = CommsState_CRC;
+        }
+        break;
+
+    case CommsState_CRC:
+        temporary_packet.crc = uart_read_byte();
+        uint8_t computed_crc = crc8((uint8_t*)&temporary_packet,PACKET_LENGTH - PACKET_CRC_BYTES);
+        if(temporary_packet.crc != computed_crc){
+            return false;
+        }
+        
+        break;
+    default:
+        break;
+    }
+
+}
+
+bool comms_packet_available(void){
+
+
+}
+
+void comms_write(comms_packet_t* packet){
+
+
+}
+
+void comms_read(comms_packet_t* packet){
+
+
+}
