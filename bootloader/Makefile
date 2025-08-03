@@ -58,7 +58,10 @@ CSTD		?= -std=c99
 # Source files
 
 OBJS		+= $(SRC_DIR)/$(BINARY).o
-
+OBJS		+= $(SRC_DIR)/comms.o
+OBJS		+= $(SHARED_SRC_DIR)/core/crc.o
+OBJS		+= $(SHARED_SRC_DIR)/core/ring-buffer.o
+OBJS		+= $(SHARED_SRC_DIR)/core/uart.o
 ###############################################################################
 # C flags
 
