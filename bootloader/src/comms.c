@@ -38,6 +38,7 @@ static bool comms_is_single_byte_packet(const comms_packet_t* packet ,uint8_t by
     }
     return true;
 } 
+
 static void comms_packet_memcpy( const comms_packet_t* source ,comms_packet_t* dest){
     dest->length  = source->length;
     for (uint8_t i = 0; i < PACKET_DATA_LENGTH; i++)
@@ -55,16 +56,16 @@ void comms_setup(void){
     }
     retx_packet.crc = comms_compute_crc(&retx_packet);
 
-    retx_packet.length = 1;
-    retx_packet.data[0] = PACKET_ACK_DATA0;
-    for (uint8_t i = 1; i < PACKET_DATA_LENGTH; i++)
-    {
-        retx_packet.data[i] = 0xff;
+    ack_packet.length = 1;
+    ack_packet.data[0] = PACKET_ACK_DATA0;
+    for (uint8_t i = 1; i < PACKET_DATA_LENGTH; i++){
+        ack_packet.data[i] = 0xff;
     }
-    retx_packet.crc = comms_compute_crc(&retx_packet);
+    ack_packet.crc = comms_compute_crc(&ack_packet);
 }
 
 void comms_update(void){
+      while (uart_data_available()) {
     switch (state)
     {
     case CommsState_Length:
@@ -99,7 +100,7 @@ void comms_update(void){
             break;
         }
         uint32_t next_write_index = (packet_write_index + 1) & packet_buffer_mask;
-        if(next_write_index != packet_read_index){
+        if(next_write_index == packet_read_index){
             __asm__("BKPT #0");
         }
 
@@ -115,6 +116,7 @@ void comms_update(void){
     }
 
 }
+}
 
 bool comms_packet_available(void){
     return packet_read_index != packet_write_index;
@@ -123,12 +125,15 @@ bool comms_packet_available(void){
 
 void comms_write(comms_packet_t* packet){
     uart_write((uint8_t*)packet, PACKET_LENGTH);
+    comms_packet_memcpy(packet, &last_transmitted_packet);
+
 }
 
 void comms_read(comms_packet_t* packet){
-    comms_packet_memcpy(&packet[packet_read_index], packet);
+    comms_packet_memcpy(&packet_buffer[packet_read_index], packet);
     packet_read_index = (packet_read_index +1 ) & packet_buffer_mask;
 }
+
 
 uint8_t comms_compute_crc(comms_packet_t* packet){
     return crc8((uint8_t*)packet,PACKET_LENGTH - PACKET_CRC_BYTES);

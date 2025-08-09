@@ -16,3 +16,6 @@ generated.*.ld
 nbproject/
 .idea/
 .project
+
+node_modules/
+fw-updater/node_modules/

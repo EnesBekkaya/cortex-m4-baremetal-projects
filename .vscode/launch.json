@@ -48,6 +48,21 @@
             "searchDir": [],
             "runToEntryPoint": "main",
             "showDevDebugOutput": "none"
+        },
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./bootloader/bootloader.elf",
+            "name": "Debug bootloader",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "configFiles": [
+                "C:/openocd/openocd/scripts/interface/stlink.cfg",
+                "C:/openocd/openocd/scripts/target/stm32f4x.cfg"
+            ],
+            "searchDir": [],
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none"
         }
     ]
 }
